@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 012-create-table-weekend
+      author: Timur Mavlyanov
+      changes:
+        - createTable:
+            tableName: weekends
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: date
+                  type: DATE
+                  constraints:
+                    nullable: false
+                    unique: true

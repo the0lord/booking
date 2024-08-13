@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-alter-booking-table
+      author: Timur Mavlyanov
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: bookings
+            constraintName: fk_bookings_type
+
+        - dropColumn:
+            tableName: bookings
+            columnName: type_id
+
+        - dropColumn:
+            tableName: bookings
+            columnName: date_to
+
+        - renameColumn:
+            tableName: bookings
+            oldColumnName: date_from
+            newColumnName: booking_date
+
+        - modifyDataType:
+            tableName: bookings
+            columnName: booking_date
+            newDataType: DATE

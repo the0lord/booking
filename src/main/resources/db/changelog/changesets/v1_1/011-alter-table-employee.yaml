@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 011-alter-table-employee
+      author: Timur Mavlyanov
+      changes:
+        - addColumn:
+            tableName: employees
+            columns:
+              - column:
+                  name: position_id
+                  type: BIGINT
+              - column:
+                  name: team_id
+                  type: BIGINT
+
+        - addForeignKeyConstraint:
+            baseTableName: employees
+            baseColumnNames: position_id
+            constraintName: fk_employees_position
+            referencedTableName: positions
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: employees
+            baseColumnNames: team_id
+            constraintName: fk_employees_team
+            referencedTableName: teams
+            referencedColumnNames: id

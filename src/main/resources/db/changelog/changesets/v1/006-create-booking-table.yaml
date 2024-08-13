@@ -1,0 +1,61 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-create-booking-table
+      author: Timur Mavlyanov
+      changes:
+        - createTable:
+            tableName: bookings
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: employee_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: place_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date_from
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date_to
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: bookings
+            baseColumnNames: employee_id
+            constraintName: fk_bookings_employee
+            referencedTableName: employees
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: bookings
+            baseColumnNames: place_id
+            constraintName: fk_bookings_place
+            referencedTableName: places
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: bookings
+            baseColumnNames: type_id
+            constraintName: fk_bookings_type
+            referencedTableName: booking_types
+            referencedColumnNames: id

@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: 010-drop-table-booking-type
+      author: Timur Mavlyanov
+      changes:
+        - dropTable:
+            tableName: booking_types

@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 018-create-schedules-team-table
+      author: Timur Mavlyanov
+      changes:
+        - createTable:
+            tableName: schedule_teams
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: schedule_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: team_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: schedule_teams
+            baseColumnNames: schedule_id
+            constraintName: fk_schedule_teams_schedule
+            referencedTableName: schedules
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: schedule_teams
+            baseColumnNames: team_id
+            constraintName: fk_schedule_teams_team
+            referencedTableName: teams
+            referencedColumnNames: id
+
+        - addUniqueConstraint:
+            tableName: schedule_teams
+            columnNames: schedule_id, team_id

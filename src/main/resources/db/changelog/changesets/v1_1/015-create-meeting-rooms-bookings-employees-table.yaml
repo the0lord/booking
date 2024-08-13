@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 015-create-meeting-rooms-bookings-employees-table
+      author: Timur Mavlyanov
+      changes:
+        - createTable:
+            tableName: meeting_rooms_bookings_participants
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: meeting_room_booking_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: employee_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: meeting_rooms_bookings_participants
+            baseColumnNames: meeting_room_booking_id
+            constraintName: fk_meeting_rooms_bookings_participants_booking
+            referencedTableName: meeting_rooms_bookings
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: meeting_rooms_bookings_participants
+            baseColumnNames: employee_id
+            constraintName: fk_meeting_rooms_bookings_participants_employee
+            referencedTableName: employees
+            referencedColumnNames: id
+
+        - addUniqueConstraint:
+            tableName: meeting_rooms_bookings_participants
+            columnNames: meeting_room_booking_id, employee_id
